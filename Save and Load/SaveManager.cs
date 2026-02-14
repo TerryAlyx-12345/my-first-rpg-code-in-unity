@@ -39,9 +39,9 @@ public class SaveManager : MonoBehaviour
     public void RegisterAndLoadData(ISaveManager manager) {
         if (!registeredSaveManagers.Contains(manager)) {
             registeredSaveManagers.Add(manager);
-            if (gameData != null) {
-                manager.LoadData(gameData);
-            }
+        }
+        if (gameData != null) {
+            manager.LoadData(gameData);
         }
     }
     public void Unregister(ISaveManager manager) {

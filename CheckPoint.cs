@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,10 +10,8 @@ public class CheckPoint : MonoBehaviour
     public string checkPointID;
     public bool activationStatus;
     private void Awake() {
-
     }
     private void Start() {
-        GameManager.instance.checkPoints.Add(this);
         anim = GetComponent<Animator>();
     }
 
@@ -39,9 +38,5 @@ public class CheckPoint : MonoBehaviour
     private IEnumerator DelayedActivateCheckpoint() {
         yield return null;  // 下一帧 Player 肯定初始化完毕了
         anim.SetBool("Active", true);     // 递归重试
-    }
-    private void OnDestroy() {
-        Debug.Log($"CheckPoint {checkPointID} is being destroyed. Stack trace: {StackTraceUtility.ExtractStackTrace()}");
-        GameManager.instance.checkPoints.Remove(this);
     }
 }
