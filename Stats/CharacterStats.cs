@@ -144,7 +144,7 @@ public class CharacterStats : MonoBehaviour {
         GetComponent<Entity>().DamageImpact();
         fx.StartCoroutine("FlashFX");
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && isDead == false)
             Die();
     }// really decrease health and judge when to die
     protected virtual void DecreaseHealthBy(int _damage) {

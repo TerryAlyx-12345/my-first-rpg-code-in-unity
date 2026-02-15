@@ -12,9 +12,11 @@ public class PlayerMoveState : PlayerGroundedState {
 
     public override void Exit() {
         base.Exit();
+        AudioManager.instance.StopSFX(10);
     }
 
     public override void Update() {
+        AudioManager.instance.PlaySFX(10, null);
         base.Update();
         player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
         if (xInput == 0) {

@@ -18,9 +18,12 @@ public class PlayerStats : CharacterStats {
 
     protected override void Die() {
         base.Die();
+        PlayerManager playerManager = PlayerManager.instance;
+        LostCurrency.instance.currencyContain = Mathf.RoundToInt(playerManager.currency * playerManager.lostCurrencyRate);
+        Debug.Log("Player lost " + LostCurrency.instance.currencyContain + " currency on death.");
+        playerManager.currency = 0;
         player.Die();
-
-        GetComponent<PlayerItemDrop>()?.GenerateDrop();
+        GetComponent<PlayerItemDrop>()?.GenerateDrop();//to be modified : when player die,player still can pickup items
     }
 
     protected override void DecreaseHealthBy(int _damage) {

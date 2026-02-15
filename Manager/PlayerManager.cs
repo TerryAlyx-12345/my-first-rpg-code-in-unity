@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     public Player player;
 
     public int currency;
+    public float lostCurrencyRate = .2f;
     private void Awake() {
         if (instance != null) {
             Destroy(instance.gameObject);

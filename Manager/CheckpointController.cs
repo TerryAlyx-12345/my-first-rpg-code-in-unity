@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckpointManager : MonoBehaviour, ISaveManager 
+public class CheckpointController : MonoBehaviour, ISaveManager 
 {
     [SerializeField] public List<CheckPoint> checkPoints;
     [SerializeField] private string closestCheckpointID;

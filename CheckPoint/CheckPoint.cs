@@ -14,7 +14,11 @@ public class CheckPoint : MonoBehaviour
     private void Start() {
         anim = GetComponent<Animator>();
     }
-
+    private void Update() {
+        if (activationStatus) {
+            AudioManager.instance.PlaySFX(12, transform);
+        }
+    }
     [ContextMenu("Generate checkpointID")]
     private void GenerateID() {
         checkPointID = System.Guid.NewGuid().ToString();
@@ -26,6 +30,9 @@ public class CheckPoint : MonoBehaviour
     }
 
     public void ActivateCheckpoint() {
+        if (!activationStatus) {
+            AudioManager.instance.PlaySFX(11, transform);
+        }
         activationStatus = true;
         if (anim == null) {
             StartCoroutine(DelayedActivateCheckpoint());
