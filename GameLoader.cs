@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameLoader : MonoBehaviour
 {
+    private void Awake() {
+    }
     void Start() {
         StartCoroutine(LoadGameScene());
     }

@@ -5,12 +5,14 @@ using UnityEngine;
 public class EnemyStats : CharacterStats {
     private Enemy enemy;
     private ItemDrop myDropSystem;
+    public Stat soulsDropAmount;
 
     [Header("Level details")]
     [SerializeField]private int level = 1;
     [Range(0f,1f)]
     [SerializeField] private float persentageModifier = .2f;
     protected override void Start() {
+        soulsDropAmount.SetDefaultValue(100);
         ApplyLevelModifiers();
         base.Start();
         enemy = GetComponent<Enemy>();
@@ -25,6 +27,7 @@ public class EnemyStats : CharacterStats {
 
         Modify(damage);
         Modify(maxHealth);
+        Modify(soulsDropAmount);
     }
 
     private void Modify(Stat _stat) {
@@ -40,6 +43,7 @@ public class EnemyStats : CharacterStats {
     protected override void Die() {
         base.Die();
         enemy.Die();
+        PlayerManager.instance.currency += soulsDropAmount.GetValue();//to be modified real soul drop
         myDropSystem.GenerateDrop();
     }
 

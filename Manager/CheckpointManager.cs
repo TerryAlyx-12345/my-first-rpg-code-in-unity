@@ -24,7 +24,8 @@ public class CheckpointManager : MonoBehaviour, ISaveManager
     }
 
     public void SaveData(ref GameData _data) {
-        _data.closestCheckpointID = FindClosestCheckpoint().checkPointID;
+        CheckPoint closest = FindClosestCheckpoint();
+        _data.closestCheckpointID = closest != null ? closest.checkPointID : string.Empty;
         _data.checkpointsStorage.Clear();
         foreach (CheckPoint checkpoint in this.checkPoints) {
             _data.checkpointsStorage.Add(checkpoint.checkPointID, checkpoint.activationStatus);
@@ -44,6 +45,7 @@ public class CheckpointManager : MonoBehaviour, ISaveManager
         return closestCheckpoint;
     }
     private void PlacePlayerAtClosestCheckpoint() {
+        if (string.IsNullOrEmpty(closestCheckpointID)) return;
         foreach (CheckPoint checkPoint in checkPoints) {
             if (closestCheckpointID == checkPoint.checkPointID) {
                 PlayerManager.instance.player.transform.position = checkPoint.transform.position;

@@ -147,10 +147,6 @@ public class Sword_Skill : Skills {
             dots[i].SetActive(false);
         }
     }
-    // 在每次循环中，实例化一个dotPrefab（点的预制体）
-    // 实例化的位置是player.transform.position（玩家的位置）
-    // 旋转为Quaternion.identity（无旋转）
-    // 父物体为dotsParent（一个Transform，用于组织这些点，使层次结构清晰）
 
     private Vector2 DotsPosition(float t) {
         Vector2 position = (Vector2)player.transform.position + new Vector2(

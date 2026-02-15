@@ -16,11 +16,12 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private Image blackholeImage;
     [SerializeField] private Image falskImage;
 
-    [SerializeField] private TextMeshProUGUI currentSouls;
-
-
     private SkillManager skills;
 
+    [Header("Souls info")]
+    [SerializeField] private TextMeshProUGUI currentSouls;
+    [SerializeField] private float soulsAmount;
+    [SerializeField] private float increaseRate = 1000;
     void Start()
     {
         if (playerStats != null) {
@@ -29,9 +30,8 @@ public class UI_InGame : MonoBehaviour
         skills = SkillManager.instance;
     }
 
-    void Update()
-    {
-        currentSouls.text = PlayerManager.instance.GetCurrencyAmount().ToString("#,#");
+    void Update() {
+        UpdateSoulsUI();
         if (Input.GetKeyDown(KeyCode.U) && skills.dash.DashUnlocked()) {
             SetCoolDownOf(dashImage);
         }
@@ -56,6 +56,23 @@ public class UI_InGame : MonoBehaviour
         CheckCooldownOf(swordImage, skills.sword.cooldown);
         CheckCooldownOf(blackholeImage, skills.blackhole.cooldown);
         CheckCooldownOf(falskImage, Inventory.instance.flaskCooldown);
+    }
+
+    private void UpdateSoulsUI() {
+        if (soulsAmount < PlayerManager.instance.GetCurrencyAmount()){
+            increaseRate = (PlayerManager.instance.GetCurrencyAmount() - soulsAmount);
+            if(increaseRate < 200 && increaseRate > 50) {
+                increaseRate = 200;
+            }
+            else if (increaseRate < 50) {
+                increaseRate = 50;
+            }
+                soulsAmount += Time.deltaTime * increaseRate;
+        }
+        else
+            soulsAmount = PlayerManager.instance.GetCurrencyAmount();
+
+        currentSouls.text = ((int)soulsAmount).ToString();
     }
 
     private void UpdateHealthUI() {

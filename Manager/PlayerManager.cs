@@ -16,6 +16,9 @@ public class PlayerManager : MonoBehaviour, ISaveManager
             instance = this;
         }
     }
+    private void Start() {
+        SaveManager.instance.RegisterAndLoadData(this);
+    }
     public bool HaveEnoughMoney(int _price) {
         if(_price > currency) {
             Debug.Log("No enough mouney");
